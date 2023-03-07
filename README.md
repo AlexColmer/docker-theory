@@ -144,8 +144,32 @@ EXPOSE 98
 
 # execute required commands
 CMD ["nginx", "-g", "daemon off;"] 
-```
+
+``` 
 run `docker build -t <docker hub name>/<image name> .` to build you service.
 
-if successfull when runnning the command `docker push -d -p 98:80<repo name>/<name of image>` then you should see this 
+if successfull when runnning the command `docker push <repo name>/<name of image>` then you should see this 
 ![Alt text](images/MyWebsite.png)
+
+to get the app working you need to write in this code 
+```
+FROM node:latest
+
+# Now we have to set this directory as our working directory: 
+WORKDIR /usr/src/app
+ 
+# Copy the file package.json to the working directory with the following command:
+COPY app /usr/src/app/
+COPY package*.json ./
+ 
+# After this we have to run npm install so that we can set up our node environment:
+RUN npm install
+ 
+# The app that I am running uses the port 3000, we will be using EXPOSE instruction so that it can be mapped by the docker daemon: 
+EXPOSE 3000
+ 
+# And then the final command to start our project with npm start:
+CMD ["npm","start"]
+
+```
+then run the build run and push commands from before. 
