@@ -13,8 +13,10 @@
 - Red Hat Inc
 # Difference betweteen vertualisation and containerisation 
 - Containerization is a form of virtualization. Virtualization aims to run multiple OS instances on a single server, whereas containerization runs a single OS instance, with multiple user spaces to isolate processes from one another
-
-
+## virtualisation
+- ![Alt text](images/vitualisation.png)
+## Containerisation 
+![Alt text](images/docker-containerized-appliction-blue-border_2.webp)
 # commands to use when using docker 
 ```
 Options:
@@ -109,8 +111,38 @@ Run 'docker COMMAND --help' for more information on a command.
 
 To get more help with docker, check out our guides at https://docs.docker.com/go/guides/
 ```
+# Docker Architecture
 ![Alt text](images/Docker-architecture.webp)
 
+# Makeing changes to nginx 
+- start by running this command `docker run -d -p 80:80 nginx` 
+- to test that this works you just need to type in localhost into your browser and nginx should come up
+```
+docker exec -it <container id> /bin/bash # if this works good! if not try the following
+
+docker exec -it <container id> sh
+
+alias docker="winpty docker"
+
+# run the command again 
+docker exec -it <container id> sh
+# now it should work
+```
+
+```
+apt update -y
+apt upgrade -y
+apt install nano
+
+cd /usr
+cd share
+cd nginx
+cd html
+ls
+nano index.html
+now in line <h1>welcome to devops </h1>
+# change this to whatever you want and you should see the change when you re type in localhost.
+```
 # creating custon nginx template 
 - creat a index.html with this line of code in it 
 ```
