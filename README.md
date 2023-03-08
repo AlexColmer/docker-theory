@@ -1,5 +1,9 @@
 # What 
 - Docker is a software platform that allows you to build, test, and deploy applications quickly. Docker packages software into standardized units called containers that have everything the software needs to run including libraries, system tools, code, and runtime.
+## benefits 
+- use less system resources
+- good scalability 
+- 
 # Why
 - Docker containers make it easy to put new versions of software, with new business features, into production quickly—and to quickly roll back to a previous version if you need to. They also make it easier to implement strategies like blue/green deployments.
 # When
