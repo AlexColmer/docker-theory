@@ -23,8 +23,8 @@ distributing the workload across multiple nodes.
 
 # how to get k8 running with docker(desktop)
 - go to settings and tick the enable kubernetes box 
- ![Alt text](docker-theory/images/K8.png)
 
+![Alt text](images/K8.png)
  # kubernetes commands 
  ```
  kubectl controls the Kubernetes cluster manager.
