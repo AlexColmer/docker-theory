@@ -118,7 +118,7 @@ To get more help with docker, check out our guides at https://docs.docker.com/go
 # Docker Architecture
 ![Alt text](images/Docker-architecture.webp)
 
-# Makeing changes to nginx 
+# Making changes to nginx 
 - start by running this command `docker run -d -p 80:80 nginx` 
 - to test that this works you just need to type in localhost into your browser and nginx should come up
 ```
@@ -184,7 +184,7 @@ CMD ["nginx", "-g", "daemon off;"]
 ``` 
 run `docker build -t <docker hub name>/<image name> .` to build you service.
 
-if successfull when runnning the command `docker push <repo name>/<name of image>` then you should see this 
+if sucessfull when running the command `docker push <repo name>/<name of image>` then you should see this 
 ![Alt text](images/MyWebsite.png)
 
 to get the app working you need to write in this code 
