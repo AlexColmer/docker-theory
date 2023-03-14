@@ -96,3 +96,93 @@ Use "kubectl <command> --help" for more information about a given command.
 Use "kubectl options" for a list of global command-line options (applies to all commands).
 
  ```
+![Alt text](images/MicrosoftTeams-image%20(3).png)
+
+ # deploying nginx with pods
+ - we want to make sure we get three pods working so that we have high avliability and scalibility 
+ - to get this done we will 
+ 1. create a file `nginx-deploy.yml`
+ 2. write the code shwon below 
+ ![Alt text](images/nginx-code.png)
+ - after this you will need to mak another file called `nginx-service.yml`
+ ```
+ ---
+
+apiVersion: v1
+kind: Service
+metadata: 
+  name: nginx-svc
+  namespace: default
+
+spec: 
+  ports: 
+  - nodePort: 30001 #range is 30000-32768
+    port: 80
+
+
+    targetPort: 80
+
+  selector: 
+    app: nginx # this label connects this service to deployment
+
+  type: NodePort
+ ```
+- now run the commands `kubectl create -f nginx-delpoy.yml` and `kubectl create -f nginx-service.yml` 
+- you should see the app working in your browser 
+## now to get the app working you will need to creat two new files called `app-deploy.yml` and `app-service.yml`
+- in app deploy have this code 
+```
+apiVersion: apps/v1 #which Api to use for deployment
+kind: Deployment # what kind of API/object you want to create
+metadata: 
+  name: app-deployment # naming the deployment
+spec:
+  selector:
+    matchLabels:
+      app: node # Look for this lable 
+
+  replicas: 3 # How many replicas/instances 
+  template: 
+    metadata: 
+      labels: 
+        app: node # This label connects to the service or any other K8 components
+    # Lets define the container spec
+    spec:  
+     containers:
+     - name: node
+       image: acolmer/tech201-node-app:v1
+      
+       env:
+       - name: DB_HOST
+         value: mongodb://mongo:27017/posts
+       ports: 
+       - containerPort: 3000
+       imagePullPolicy: Always
+```
+
+- in app service have this 
+```
+---
+
+apiVersion: v1
+kind: Service
+metadata: 
+  name: node
+  namespace: default
+
+spec: 
+  ports: 
+  - nodePort: 30003 #range is 30000- 
+    port: 3000
+
+
+    targetPort: 3000
+
+  selector: 
+    app: node # this label connects this service to deployment
+
+  type: NodePort
+```
+
+- with these lines of code you should get your app up and running along with the kubectl commands we ran befor but just change `nginx-deoply/service.yml` for `app-deploy/service.yml`
+![Alt text](images/MicrosoftTeams-image%20(4).png)

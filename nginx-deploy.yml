@@ -1,0 +1,21 @@
+apiVersion: apps/v1 #which Api to use for deployment
+kind: Deployment # what kind of API/object you want to create
+metadata: 
+  name: nginx-deployment # naming the deployment
+spec:
+  selector:
+    matchLables:
+      app: nginx # Look for this lable 
+
+  replicas: 3 # How many replicas/instances 
+  template: 
+    metadata: 
+      lables: 
+        app: nginx # This label connects to the service or any other K8 components
+    # Lets define the container spec
+    spec:  
+      containers:
+      - name: app
+        image: acolmer/tech201-nginx
+        ports: 
+        - containerPort: 80

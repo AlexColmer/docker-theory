@@ -1,0 +1,28 @@
+apiVersion: apps/v1 #which Api to use for deployment
+kind: Deployment # what kind of API/object you want to create
+metadata: 
+  name: app-deployment # naming the deployment
+spec:
+  selector:
+    matchLabels:
+      app: node # Look for this lable 
+
+  replicas: 3 # How many replicas/instances 
+  template: 
+    metadata: 
+      labels: 
+        app: node # This label connects to the service or any other K8 components
+    # Lets define the container spec
+    spec:  
+     containers:
+     - name: node
+       image: acolmer/tech201-node-app:v1
+      
+       env:
+       - name: DB_HOST
+         value: mongodb://mongo:27017/posts
+       ports: 
+       - containerPort: 3000
+       imagePullPolicy: Always
+
+    

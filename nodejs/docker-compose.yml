@@ -1,0 +1,30 @@
+version: "3"
+services: 
+  mongo:
+    image: mongo:4.4
+    container_name: mongo
+
+    volumes:
+     - ./app/mongod.conf:/etc/mongod.conf
+
+    ports:
+    - "27017:27017"
+    
+
+
+
+  app:
+    container_name: app
+    restart: always
+    build: .
+    ports:
+      - "80:3000"
+    links:
+     - mongo
+    environment:
+    - DB_HOST=mongodb://mongo:27017/posts
+    command: bash -c "node /usr/src/app/seeds/seed.js && cd /usr/src/app && npm start"
+
+    
+    
+    
